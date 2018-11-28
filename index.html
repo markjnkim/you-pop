@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <h1>Spotify</h1>
+  <div class="container">
+    <div id="artist-name">
+
+    </div>
+    <div id="artist-image"></div>
+  </div>
+  
+  <script>
+
+    const BASE_URL = 'https://api.spotify.com/v1/search?';
+    const FETCH_URL = BASE_URL + 'q=' + 'prince' + '&type=artist&limit=1';
+    var accessToken = 'BQDktrrvJwtg10E6ZiqaCmKsWeFnYkQRcGktZJndLni1Dvx-YI2u8znaXmd2RcVBufcETDowaluNzf6qxkkdD0roXWqbtmTwTqUduRpyIc0jt6pimdfS_KhsBJ7zMg7U9bvp7ZBg4lpdVhvRm6PmVUSx2roW_RiJ&'
+
+    var myOptions = {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + accessToken
+      },
+      mode: 'cors',
+      cache: 'default'
+    };
+
+    fetch(FETCH_URL, myOptions)
+      .then(response => response.json())
+      .then(json => {
+        const artist = json.artists.items[0];   
+        const res = json;     
+        console.log(artist);
+        const artist_name = document.getElementById('artist-name');
+        const artist_image = document.getElementById('artist-image');
+        const p = document.createElement("p");
+        const img = document.createElement("img");
+        img.src = `${artist.images[2].url}`;
+        p.append(`${artist.name}`);
+        // document.getElementById('artists').append(<img src =`${artist.images[2]}` />);
+        artist_name.append(p);
+        artist_image.append(img);
+      })
+    
+  </script>
+</body>
+</html>
