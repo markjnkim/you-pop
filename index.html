@@ -18,8 +18,8 @@
   <script>
 
     const BASE_URL = 'https://api.spotify.com/v1/search?';
-    const FETCH_URL = BASE_URL + 'q=' + 'prince' + '&type=artist&limit=1';
-    var accessToken = 'BQDktrrvJwtg10E6ZiqaCmKsWeFnYkQRcGktZJndLni1Dvx-YI2u8znaXmd2RcVBufcETDowaluNzf6qxkkdD0roXWqbtmTwTqUduRpyIc0jt6pimdfS_KhsBJ7zMg7U9bvp7ZBg4lpdVhvRm6PmVUSx2roW_RiJ&'
+    const FETCH_URL = BASE_URL + 'q=' + 'the+killers' + '&type=artist&limit=1';
+    var accessToken = 'BQDOyifD2HvNHCvOAk7xIVDRpWEKj_1XFIjNWrRGSkLAoYxljYQd5n2Ek9Bq5jKy_5ew6O-k5bixxbCfdtDWDsJdybZxS4dpcMlhEFoWLk04cn3M_p-GoheLMCxe6Z3oP82ORTvm8bUPhvvc7y2mnLSrPugYa5_O&refresh_token=AQD4-snxY43G0W1-mBZ5-LMyZPGES7cLGn2lL16T95weuJtwRZ0IVAZ0_rBiBKVYy9WXO95uNgM78wCOBFnIgwmqBiXElu_pDDRU48pg2IDVihnwQeYbYIphqDIkFYzq00aczg';
 
     var myOptions = {
       method: 'GET',
@@ -42,11 +42,12 @@
         const img = document.createElement("img");
         img.src = `${artist.images[2].url}`;
         p.append(`${artist.name}`);
-        // document.getElementById('artists').append(<img src =`${artist.images[2]}` />);
+        const pop = document.createElement("p");
+        pop.append(`${artist.popularity}`);
         artist_name.append(p);
         artist_image.append(img);
+        artist_image.append(pop);
       })
-    
   </script>
 </body>
 </html>
