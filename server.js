@@ -14,6 +14,6 @@ fs.readFile('./index.html', function (err, html) {
     response.end();
   }).listen(8888, '127.0.0.1', function() {
     // Console
-    console.log("Server running at http://localhost:8080");
+    console.log("Server running at http://localhost:8000");
   });
 });
