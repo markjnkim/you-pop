@@ -1,5 +1,5 @@
 #artist {
-  max-width: 45%;
+  max-width: 90%;
 }
 
 body {
@@ -8,5 +8,38 @@ body {
 }
 
 img {
-  max-width: 50%;
+  width: 90%;
+  /* height: 50%; */
+}
+
+.container {
+  margin: 0 auto;
+  display: flex;
+}
+
+div.images {
+  float: left;
+  position: relative;
+  display: inline;
+  flex: 0 1 auto;
+  text-align: center;
+  min-height: 300px;
+  min-width: 300px;
+  clear: both;
+  overflow: auto;
+  /* min-width: 40%; */
+}
+
+* {
+  border: solid 2px red; 
+}
+
+.align {
+  margin: 0 auto;
+  text-align: center;
+}
+
+#answer {  
+  color: red;
+  background-color: grey;
 }
