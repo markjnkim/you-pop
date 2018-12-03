@@ -10,6 +10,8 @@ body {
 img {
   width: 90%;
   /* height: 50%; */
+  max-height: 300px;
+  object-fit:cover;
 }
 
 img:hover {
@@ -23,6 +25,7 @@ img:active {
 .container {
   margin: 0 auto;
   display: flex;
+  padding: 20px 5px 20px 5px;
 }
 
 div.images {
