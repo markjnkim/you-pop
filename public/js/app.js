@@ -33,7 +33,7 @@ const getApiArtist = function() {
     
 };
 
-
+// Gets most popular artist by random year
 const getApi = function() {
   const BASE_URL = 'https://api.spotify.com/v1/search?';
   // let artOne, artTwo;
@@ -66,7 +66,7 @@ const getApi = function() {
   
     
 };
-
+// Gets several related artists by artist id
 const getSeveralApi = function() {
   const BASE_URL = 'https://api.spotify.com/v1/artists/0TnOYISbd1XYRBk9myaseg/related-artists';
   // let artOne, artTwo;
