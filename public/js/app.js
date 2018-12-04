@@ -140,10 +140,11 @@ function renderTwo() {
   document.getElementById("artist").innerHTML = "";
   document.getElementById("answer").innerHTML = "";
   for(let i = 0; i < 2; i++){
-    render_data(artistArray.shift());
+    const random_element = artistArray[Math.floor(Math.random() * artistArray.length)];
+    render_data(random_element);
     // var randomAnswer = answers[Math.floor(Math.random() * answers.length)];
     // const random_index = Math.floor(Math.random() * artistArray.length);
-    // const random_element = artistArray[Math.floor(Math.random() * artistArray.length)];
+    // 
     // render_data(random_element);  
     // array.remove(artistArray, function(n) {
     //   return n === random_element;
@@ -220,22 +221,14 @@ function getPop(artist) {
   playAgain();
 }
 
-//Several artists.
-// getSeveralApi();
-// getApi();
-// setTimeout( function() {
-//   getApi();
-// }, 9 );
 getApiArtists();
 
 
-document.onkeyup = function() {
-  // const key = event.key;
-  document.getElementById("artist").innerHTML = "";
-  document.getElementById("answer").innerHTML = "";
-  renderTwo();
-  // console.log(key);
-};
+// document.onkeyup = function() {
+//   document.getElementById("artist").innerHTML = "";
+//   document.getElementById("answer").innerHTML = "";
+//   renderTwo();
+// };
 const playAgain = function() {
   document.getElementById("artist").onclick = function(event) {
     if (document.getElementById("answer")) {
@@ -243,7 +236,7 @@ const playAgain = function() {
       
       setTimeout( function() {
         renderTwo();
-      }, 3000 );
+      }, 1700 );
     }
   };
 };
