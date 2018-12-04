@@ -1,10 +1,18 @@
+:root {
+  --title-font: 'Unlock', cursive;
+  --subtitle-font: 'Indie Flower', cursive;
+  --aside-font: 'Anton', sans-serif;
+  --primary-color: rgb(9, 224, 240);
+}
+
 #artist {
   max-width: 90%;
 }
 
 body {
   background-image: url("../images/paper.jpg");
-  background-color:blue;
+  background-color:red;
+  color: blue
 }
 
 img {
@@ -16,6 +24,7 @@ img {
 
 img:hover {
   cursor: pointer;
+  opacity: 0.5;
 }
 
 img:active {
@@ -53,4 +62,12 @@ div.images {
 #answer {  
   color: red;
   background-color: lightgrey;
+}
+
+#title {
+  font-family: var(--aside-font);
+}
+
+#subtitle {
+  font-family: var(--secondary-font);
 }
