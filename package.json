@@ -11,6 +11,10 @@
   "license": "MIT",
   "dependencies": {
     "dotenv": "^6.1.0",
+    "lodash": "^4.17.11",
     "require": "^2.4.20"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.7"
   }
 }
