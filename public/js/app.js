@@ -1,9 +1,10 @@
 let artistArray = [];
+let correct = 0;
 // Gets an array.length = 50; of artists from 1980 to 2018
 const getApiArtists = function() {
   const BASE_URL = 'https://api.spotify.com/v1/search?';
   const FETCH_URL = BASE_URL + 'q=year:1980-2018&type=artist&market=US&limit=50';
-  const accessToken = 'BQAsUFYUPGzSvcVOzk7k4vuH5eK1Hi-3aIp_DwcjP5N5u__60tYNV2nJU2KtX6axhdRn6Lx-EJ39QnpMn6ao0e1sgYy04ny9StM1JmdTUpuwfE28X3htsltUCSe6K5bazs-ex2RMRF8etnDym6fYASlIinjnUNDE&refresh_token=AQDT0L81xatlsqGSRCbGHQOJfjwjLRzyIWpX5uKYw9Hos1obLODq3ceW8QDU6ROtPVvjgque4jBy9JIVnKOkBKbMu-PUU0YEzVOOVzQkG4IIlZueozwTvdyceZRm6FNOL39IYQ';
+  const accessToken = 'BQCW4gOV_NXS_VlaZ42DVkv4r98zzYqrpTDidr6XwqaNyObxsLczpvUSLijHEIWPWVM-UCjzU-L4FLMfAAeOWfinOpnYYWTiOD7byh3NH9sc3S_y4bgOf8cmSq4yZJ0P3lCWL5VXKwe7CLaQfYeNXWgA4nR089zj&refresh_token=AQDncrIviVBPIFYnszHgq9XKXtJPJJn-bnwGTr6L43qKm6QoZB_BPRSREqyjDYSvm7hrgrdXsiko4knKr_hE9uxg25YxYtpo8LWd58mGG8Ud6Xe68YmFB4rKSM-mDgkQjWkQzw';
 
   var myOptions = {
     method: 'GET',
@@ -19,12 +20,12 @@ const getApiArtists = function() {
   .then(json => {
     artistArray = json.artists.items;
     console.log(json.artists.items);
-    renderTwo();
+    randomTwo();
   });
 };
 
 //Renders two randomly selected artists from artistArray
-function renderTwo() {
+function randomTwo() {
   document.getElementById("artist").innerHTML = "";
   document.getElementById("answer").innerHTML = "";
   for(let i = 0; i < 2; i++){
@@ -42,7 +43,7 @@ function render_data(artist) {
 
   img.classList.add("rounded-circle");
   img.classList.add("img-fluid");
-  img.src = `${artist.images[0].url}`;
+  img.src = artist.images[0].url;
   name.innerHTML = artist.name;
   name.classList.add("align");
 
@@ -60,33 +61,65 @@ function render_data(artist) {
   div.appendChild(name);
 };
 
+// reset score and gets a new set of artists
+function startOver() {
+  correct = 0;
+  document.getElementById("artist").innerHTML = "";
+  getApiArtists();
+}
+
+// Post Score
+function scoreBoard() {
+  // renders final score
+  // play Again? option
+  const score = document.getElementById("artist");
+  score.innerHTML = "";
+  const div = document.createElement("div");
+  div.innerHTML = `Your score ${correct}`;
+  const reset = document.createElement("div");
+  reset.setAttribute("id", "reset");
+  reset.innerHTML = "play Again?";
+  score.append(div);
+  score.append(reset);
+  startOver();
+}
+// compare popularity b/n artists
 function getPop(artist) {
+  const correct_img = document.createElement("img");
+  correct_img.setAttribute("src", "./public/images/blue_check.svg");
+  correct_img.classList.add("answer-img");
+  const wrong_img = document.createElement("img");
+  wrong_img.setAttribute("src", "./public/images/blue_x.png");
+  wrong_img.classList.add("answer-img");
+  const answer = document.getElementById("artist");
+  answer.innerHTML="";
   // If you choose the first image/artist
-  if (artist.id === "artist-1"){
+  if( artist.id === "artist-1" ) {
     const artOne = artist;
     const artTwoPop = document.getElementById("artist-2").getAttribute("name");
-    console.log(`artTwoPop: ${artTwoPop}`);
-    console.log(`artOnePop: ${artOne.name}`);
-    const answer = document.getElementById("answer");
     if( parseInt(artOne.name) > parseInt(artTwoPop) ) {
-      console.log(typeof artOne.name);
-      answer.innerHTML = "Winner Winner Chicken Dinner!";
-    }else{
-      answer.innerHTML = "Loser Loser We Got a Snoozer!";
+      answer.append(correct_img);
+      correct++;
+      playAgain();
+      // answer.innerHTML = "Winner Winner Chicken Dinner!";
+    }else {
+      // Wrong Answer
+      answer.append(wrong_img);
+      scoreBoard();
     }
-
     // You picked artist 2
   }else { 
     const artTwo = artist;
-    const artOnePop = document.getElementById("artist-1").getAttribute("name");;
+    const artOnePop = document.getElementById("artist-1").getAttribute("name");
     if( parseInt(artTwo.name) > parseInt(artOnePop) ) {
-      // console.log(typeof artOne.name);
-      answer.innerHTML = "Winner Winner Chicken Dinner!";
-    }else{
-      answer.innerHTML = "Loser Loser We Got a Snoozer!";
+      answer.append(correct_img);
+      correct++;
+      playAgain();
+    }else {
+      answer.append(wrong_img);
+      scoreBoard();
     }
   }
-  playAgain();
 }
 
 const playAgain = function() {
@@ -95,7 +128,7 @@ const playAgain = function() {
       event.preventDefault();
       
       setTimeout( function() {
-        renderTwo();
+        randomTwo();
       }, 1700 );
     }
   };

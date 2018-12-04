@@ -28,13 +28,14 @@ img:hover {
 }
 
 img:active {
-  border: solid 1px red;
+  border: solid 2px red;
 }
 
 .container {
   margin: 0 auto;
   display: flex;
-  padding: 20px 5px 20px 5px;
+  padding: 20px 5px 70px 5px;
+  justify-content: center;
 }
 
 div.images {
@@ -43,10 +44,12 @@ div.images {
   display: inline;
   flex: 0 1 auto;
   text-align: center;
-  min-height: 300px;
-  min-width: 300px;
+  max-height: 300px;
+  max-width: 300px;
   clear: both;
-  overflow: auto;
+  margin: 5%;
+  /* overflow: auto; */
+
   /* min-width: 40%; */
 }
 
@@ -65,9 +68,27 @@ div.images {
 }
 
 #title {
-  font-family: var(--aside-font);
+  font-family: var(--title-font);
+  font-size: 10vw;
 }
 
 #subtitle {
   font-family: var(--secondary-font);
+  font-size: 5vw;
+}
+
+.answer-img {
+  max-height: 25vw;
+  max-width: 25vw;
+  justify-content: center;
+}
+
+#reset {
+  font-family: var(--secondary-font);
+  font-size: 15px;
+}
+
+#reset:hover {
+  opacity: .8;
+  cursor: pointer;
 }
