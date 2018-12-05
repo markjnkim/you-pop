@@ -4,7 +4,7 @@ let correct = 0;
 const getApiArtists = function() {
   const BASE_URL = 'https://api.spotify.com/v1/search?';
   const FETCH_URL = BASE_URL + 'q=year:1980-2018&type=artist&market=US&limit=50';
-  const accessToken = 'BQCW4gOV_NXS_VlaZ42DVkv4r98zzYqrpTDidr6XwqaNyObxsLczpvUSLijHEIWPWVM-UCjzU-L4FLMfAAeOWfinOpnYYWTiOD7byh3NH9sc3S_y4bgOf8cmSq4yZJ0P3lCWL5VXKwe7CLaQfYeNXWgA4nR089zj&refresh_token=AQDncrIviVBPIFYnszHgq9XKXtJPJJn-bnwGTr6L43qKm6QoZB_BPRSREqyjDYSvm7hrgrdXsiko4knKr_hE9uxg25YxYtpo8LWd58mGG8Ud6Xe68YmFB4rKSM-mDgkQjWkQzw';
+  const accessToken = 'BQB6VKUNX331tVVS1sdHb5Jp0sJ4a25tGkWXzM4DPV83-_UCvpf8JKUZ3Kdu4Xaj2NBf9OO4KhxC0DGdNM6ztjw_2ijuqOD1JGbMXvbE95K9GRKK2dnAHiW37JlZonYa_QU4oUzgWD9XS6yCxyAQWBWcb4Dj5Jtg&refresh_token=AQDkPGGw1FkfUjgJw0LpZ39rUThP9jvSMEUeWsE8XI07mDUMmPX83dzAT6AjlNHyhGCaKK4KKawj9D_dC8XlrILQjYsuhiBS84i9T4OWIWzEKOhucEhW-gVa9BZtvuLmKFIJ0g';
 
   var myOptions = {
     method: 'GET',
@@ -24,7 +24,8 @@ const getApiArtists = function() {
   });
 };
 
-//Renders two randomly selected artists from artistArray
+// Renders two randomly selected artists from artistArray
+// Also clears
 function randomTwo() {
   document.getElementById("artist").innerHTML = "";
   document.getElementById("answer").innerHTML = "";
@@ -61,29 +62,37 @@ function render_data(artist) {
   div.appendChild(name);
 };
 
-// reset score and gets a new set of artists
 function startOver() {
-  correct = 0;
-  document.getElementById("artist").innerHTML = "";
-  getApiArtists();
+  const reset = document.getElementById("reset");
+  reset.onclick = function() {
+    correct = 0;
+    randomTwo();
+    setTimeout( function() {reset.innerHTML = "";}, 200);
+  };
 }
 
 // Post Score
 function scoreBoard() {
   // renders final score
   // play Again? option
-  const score = document.getElementById("artist");
+  const content = document.getElementById("artist");
+  content.innerHTML = "";
+  const score = document.getElementById("subtitle");
+  score.setAttribute("style", "background-color:white;");
+  score.setAttribute("style", "padding: 20px;");
   score.innerHTML = "";
   const div = document.createElement("div");
-  div.innerHTML = `Your score ${correct}`;
+  div.setAttribute("id", "score-board");
+  div.innerHTML = `Your score: ${correct}`;
+  correct = 0;
   const reset = document.createElement("div");
   reset.setAttribute("id", "reset");
-  reset.innerHTML = "play Again?";
+  reset.innerHTML = "Play Again?";
   score.append(div);
-  score.append(reset);
+  div.appendChild(reset);
   startOver();
 }
-// compare popularity b/n artists
+// compare popularity
 function getPop(artist) {
   const correct_img = document.createElement("img");
   correct_img.setAttribute("src", "./public/images/blue_check.svg");
@@ -92,35 +101,56 @@ function getPop(artist) {
   wrong_img.setAttribute("src", "./public/images/blue_x.png");
   wrong_img.classList.add("answer-img");
   const answer = document.getElementById("artist");
-  answer.innerHTML="";
   // If you choose the first image/artist
-  if( artist.id === "artist-1" ) {
+  if (artist.id === "artist-1") {
     const artOne = artist;
     const artTwoPop = document.getElementById("artist-2").getAttribute("name");
     if( parseInt(artOne.name) > parseInt(artTwoPop) ) {
+      answer.innerHTML="";
       answer.append(correct_img);
       correct++;
+      console.log(`correct: ${correct}`);
+      scoreTracker();
       playAgain();
-      // answer.innerHTML = "Winner Winner Chicken Dinner!";
     }else {
       // Wrong Answer
+      answer.innerHTML="";
       answer.append(wrong_img);
-      scoreBoard();
+      setTimeout( function() { 
+        scoreBoard();
+      }, 2500 );
     }
+
     // You picked artist 2
   }else { 
     const artTwo = artist;
     const artOnePop = document.getElementById("artist-1").getAttribute("name");
+    // Correct Answer
     if( parseInt(artTwo.name) > parseInt(artOnePop) ) {
+      answer.innerHTML="";
       answer.append(correct_img);
       correct++;
+      scoreTracker();
+      console.log(`correct: ${correct}`);
       playAgain();
-    }else {
+    }else{
+      // Wrong Answer
+      answer.innerHTML="";
       answer.append(wrong_img);
-      scoreBoard();
+      setTimeout( function() { 
+        scoreBoard();
+      }, 2500 );
     }
   }
 }
+
+const scoreTracker = function() {
+  const update = document.getElementById("score-board");
+  const div = document.createElement("div");
+  div.setAttribute("id", "current-score");
+  update.innerHTML = "";
+  update.innerHTML = `Current Score: ${correct}`;
+};
 
 const playAgain = function() {
   document.getElementById("artist").onclick = function(event) {
@@ -129,7 +159,7 @@ const playAgain = function() {
       
       setTimeout( function() {
         randomTwo();
-      }, 1700 );
+      }, 1800 );
     }
   };
 };

@@ -44,8 +44,8 @@ div.images {
   display: inline;
   flex: 0 1 auto;
   text-align: center;
-  max-height: 300px;
-  max-width: 300px;
+  height: 300px;
+  width: 300px;
   clear: both;
   margin: 5%;
   /* overflow: auto; */
@@ -69,12 +69,12 @@ div.images {
 
 #title {
   font-family: var(--title-font);
-  font-size: 10vw;
+  font-size: 5vw;
 }
 
 #subtitle {
   font-family: var(--secondary-font);
-  font-size: 5vw;
+  font-size: 2vw;
 }
 
 .answer-img {
@@ -85,10 +85,32 @@ div.images {
 
 #reset {
   font-family: var(--secondary-font);
-  font-size: 15px;
+  font-size: 2vw;
 }
 
 #reset:hover {
   opacity: .8;
   cursor: pointer;
+  color: teal;
+}
+
+#score-board {
+  color: var(--primary-color);
+  width: 80%;
+  height: 100px;
+  background-color: white;
+  font-size: 4vw;
+  font-family: var(--subtitle-font);
+  clear: both;
+  overflow: auto;
+  justify-content: center;
+  text-align: center;
+  margin: 0 auto;
+  border-radius: 30%;
+
+}
+
+#current-score {
+  font-family: var(--subtitle-font);
+  font-size: 3vm;
 }
